@@ -7,6 +7,35 @@ public class Constant {
 	public static final String CLIENT_ID_STR="clientId";
 	public static final String CLIENT_SECRET_STR="clientSecret";
 
+	/**
+	 * 潍坊润中精细化工有限公司
+	 */
+	public static final int WFRZJXHYXGS=1;
+	/**
+	 * 山东福林新材料科技有限公司
+	 */
+	public static final int SDFLXCLKJYXGS=2;
+	/**
+	 * 潍坊普鑫化工有限公司
+	 */
+	public static final int WFPXHGYXGS=3;
+	/**
+	 * 淄博鑫乾化工有限公司
+	 */
+	public static final int ZBXQHGYXGS=4;
+	/**
+	 * 山东宝沣新材料有限公司
+	 */
+	public static final int SDBFXCLYXGS=5;
+	/**
+	 * 昌邑市瑞海生物科技有限公司
+	 */
+	public static final int CYSRHSWKJYXGS=6;
+	/**
+	 * 山东蓝天消毒科技有限公司
+	 */
+	public static final int SDLTXDKJYXGS=7;
+
 	//淄博鑫乾化工有限公司start
 	/**
 	 * 鑫乾服务器ip
@@ -61,6 +90,14 @@ public class Constant {
 	//淄博鑫乾化工有限公司end
 	
 	//昌邑市瑞海生物科技有限公司start
+	/**
+	 * 瑞海服务器ip
+	 */
+	public static final String SERVICE_IP_CYSRHSWKJYXGS="120.224.131.123";
+	/**
+	 * 瑞海服务器端口
+	 */
+	public static final int SERVICE_PORT_CYSRHSWKJYXGS=81;
 	/**
 	 * 瑞海项目名称
 	 */
