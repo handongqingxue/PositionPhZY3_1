@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.positionPhZY3_1.dao.StaffMapper">
+ 	<insert id="add">
+ 		insert into ${databaseName}.staff
+ 		<trim prefix="(" suffix=")" suffixOverrides=",">
+ 			<if test="staff.id!=null">
+ 				id,
+ 			</if>
+ 			<if test="staff.lzqId!=null">
+ 				lzqId,
+ 			</if>
+ 			<if test="staff.name!=null">
+ 				name,
+ 			</if>
+ 			<if test="staff.sex!=null">
+ 				sex,
+ 			</if>
+ 			<if test="staff.phone!=null">
+ 				phone,
+ 			</if>
+ 			<if test="staff.photo!=null">
+ 				photo,
+ 			</if>
+ 			<if test="staff.jobNumber!=null">
+ 				jobNumber,
+ 			</if>
+ 			<if test="staff.tagId!=null">
+ 				tagId,
+ 			</if>
+ 			<if test="staff.post!=null">
+ 				post,
+ 			</if>
+ 			<if test="staff.station!=null">
+ 				station,
+ 			</if>
+ 			<if test="staff.entityIconId!=null">
+ 				entityIconId,
+ 			</if>
+ 			<if test="staff.deptId!=null">
+ 				deptId,
+ 			</if>
+ 			<if test="staff.orgId!=null">
+ 				orgId,
+ 			</if>
+ 			<if test="staff.type!=null">
+ 				type,
+ 			</if>
+ 			<if test="staff.deleted!=null">
+ 				deleted,
+ 			</if>
+ 			<if test="staff.remark!=null">
+ 				remark,
+ 			</if>
+ 			<if test="staff.fileId!=null">
+ 				fileId,
+ 			</if>
+ 		</trim>
+ 		values
+ 		<trim prefix="(" suffix=")" suffixOverrides=",">
+ 			<if test="staff.id!=null">
+ 				#{staff.id},
+ 			</if>
+ 			<if test="staff.lzqId!=null">
+ 				#{staff.lzqId},
+ 			</if>
+ 			<if test="staff.name!=null">
+ 				#{staff.name},
+ 			</if>
+ 			<if test="staff.sex!=null">
+ 				#{staff.sex},
+ 			</if>
+ 			<if test="staff.phone!=null">
+ 				#{staff.phone},
+ 			</if>
+ 			<if test="staff.photo!=null">
+ 				#{staff.photo},
+ 			</if>
+ 			<if test="staff.jobNumber!=null">
+ 				#{staff.jobNumber},
+ 			</if>
+ 			<if test="staff.tagId!=null">
+ 				#{staff.tagId},
+ 			</if>
+ 			<if test="staff.post!=null">
+ 				#{staff.post},
+ 			</if>
+ 			<if test="staff.station!=null">
+ 				#{staff.station},
+ 			</if>
+ 			<if test="staff.entityIconId!=null">
+ 				#{staff.entityIconId},
+ 			</if>
+ 			<if test="staff.deptId!=null">
+ 				#{staff.deptId},
+ 			</if>
+ 			<if test="staff.orgId!=null">
+ 				#{staff.orgId},
+ 			</if>
+ 			<if test="staff.type!=null">
+ 				#{staff.type},
+ 			</if>
+ 			<if test="staff.deleted!=null">
+ 				#{staff.deleted},
+ 			</if>
+ 			<if test="staff.remark!=null">
+ 				#{staff.remark},
+ 			</if>
+ 			<if test="staff.fileId!=null">
+ 				#{staff.fileId},
+ 			</if>
+ 		</trim>
+ 	</insert>
+	<update id="edit">
+		update ${databaseName}.staff set
+		<trim suffixOverrides=",">
+ 			<if test="staff.name!=null">
+ 				name=#{staff.name},
+ 			</if>
+			<if test="staff.sex!=null">
+				sex=#{staff.sex},
+			</if>
+			<if test="staff.phone!=null">
+				phone=#{staff.phone},
+			</if>
+			<if test="staff.photo!=null">
+				photo=#{staff.photo},
+			</if>
+			<if test="staff.jobNumber!=null">
+				jobNumber=#{staff.jobNumber},
+			</if>
+			<if test="staff.tagId!=null">
+				tagId=#{staff.tagId},
+			</if>
+			<if test="staff.post!=null">
+				post=#{staff.post},
+			</if>
+			<if test="staff.station!=null">
+				station=#{staff.station},
+			</if>
+			<if test="staff.security!=null">
+				security=#{staff.security},
+			</if>
+			<if test="staff.entityIconId!=null">
+				entityIconId=#{staff.entityIconId},
+			</if>
+ 			<if test="staff.deptId!=null">
+ 				deptId=#{staff.deptId},
+ 			</if>
+ 			<if test="staff.orgId!=null">
+ 				orgId=#{staff.orgId},
+ 			</if>
+ 			<if test="staff.type!=null">
+ 				type=#{staff.type},
+ 			</if>
+ 			<if test="staff.deleted!=null">
+ 				deleted=#{staff.deleted},
+ 			</if>
+ 			<if test="staff.remark!=null">
+ 				remark=#{staff.remark},
+ 			</if>
+ 			<if test="staff.fileId!=null">
+ 				fileId=#{staff.fileId},
+ 			</if>
+		</trim>
+		where id=#{staff.id}
+	</update>
+ 	<select id="queryList" resultType="com.positionPhZY3_1.entity.Staff">
+ 		select * from ${databaseName}.staff where 1=1 and tagId is not null order by name
+ 	</select>
+	<select id="getCountById" resultType="java.lang.Integer">
+		select count(*) from ${databaseName}.staff where id=#{id}
+	</select>
+	<select id="queryEIList" resultType="com.positionPhZY3_1.entity.Staff">
+		select s.*,
+		<if test="databaseName eq @com.sdwhNrcc.util.Constant@DATABASE_NAME_ZBXQHGYXGS">
+			d.deptLzqId,
+		</if>
+		d.deptName from ${databaseName}.staff s left join ${databaseName}.dept d on s.deptId=d.deptId
+	</select>
+</mapper>
