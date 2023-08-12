@@ -17,11 +17,17 @@
  -->
 <title>Insert title here</title>
 <script>  
+var milkTruckEnLong=119.55105849594228;
+var milkTruckEnLat=37.04075799355465;
+
 var viewer;
 Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkZWIzYTUxYy0xMmRkLTRiYTEtODE1My1kMjE1NzAyZDQwMmIiLCJpZCI6NzMyNDUsImlhdCI6MTYzNjY5NTEzOX0.rgwvu7AcuwqpYTO3kTKuZ7Pzebn1WNu2x8bKiqgbTcM'; 
 $(function(){
 	initViewer();
 	loadTileset();
+	initStaffImg();
+	//loadEntitiesFlagImg();
+	//loadEntitiesRectImg(-150.0, 10.0, -120.0, 30.0,'http://localhost:8080/PositionPhZY/upload/IMG_20200823_151415.jpg',3);
 });
 
 function initViewer(){
@@ -55,9 +61,36 @@ function initViewer(){
     },Cesium.ScreenSpaceEventType.MOUSE_MOVE);//监听的是鼠标滑动事件
 }
 
+function loadEntitiesFlagImg(){
+	viewer.entities.add({
+	    rectangle : {
+	        coordinates : Cesium.Rectangle.fromDegrees(-100.0, 20.0, -90.0, 30.0),
+	        material : new Cesium.StripeMaterialProperty({
+	            evenColor: Cesium.Color.WHITE,
+	            oddColor: Cesium.Color.BLUE,
+	            repeat: 5
+	        })
+	    }
+	});
+}
+
+//https://blog.csdn.net/sinat_31213021/article/details/120024000
+function loadEntitiesRectImg(west,south,east,north,url,index){
+	var rectImg=viewer.entities.add({
+	    rectangle : {
+	        coordinates : Cesium.Rectangle.fromDegrees(west,south,east,north),
+	        material : url
+	    }
+	});
+	if(index==1)
+		rectImg1=rectImg;
+	else if(index==2)
+		rectImg2=rectImg;
+}
+
 function loadTileset(){
 	var tileset = new Cesium.Cesium3DTileset({
-	   url: "http://192.168.1.104:8080/PositionPhZY/upload/b3dm/tileset.json",
+	   url: "http://localhost:8080/PositionPhZY/upload/b3dm/tileset.json",
 	   shadows:Cesium.ShadowMode.DISABLED,//去除阴影
 	});
 	console.log(tileset)
@@ -76,6 +109,7 @@ function loadTileset(){
 	   var hpr = new Cesium.HeadingPitchRoll(heading, pitch, roll);
 	   var orientation = Cesium.Transforms.headingPitchRollQuaternion(position, hpr);
 	 
+	   /*
 	   var entity = viewer.entities.add({
 		   id:"milkTruck",
 	       position : position,
@@ -87,7 +121,25 @@ function loadTileset(){
 	           maximumScale : 20000
 	       }
 	   });
-	   viewer.trackedEntity = entity;
+	   //viewer.trackedEntity = entity;
+	   */
+	   
+	   //https://wenku.baidu.com/view/4cdb49d5fa0f76c66137ee06eff9aef8941e4864.html?_wkts_=1691826732887&bdQuery=cesium%E6%B7%BB%E5%8A%A0%E5%9B%BE%E7%89%87
+	   /*
+	   viewer.entities.add({
+		   id:"boy",
+	       position : position,
+	       billboard:{
+	    	   image:'http://localhost:8080/PositionPhZY/upload/staff.jpg',
+	    	   color:Cesium.Color.WHITE.withAlpha(0.8),
+	    	   width:40,
+	    	   height:40,
+	    	   verticalOrigin:Cesium.VerticalOrigin.CENTER,
+	    	   horizontalOrigin:Cesium.HorizontalOrigin.CENTER
+	       }
+	   });
+	   */
+	   
 	
 	/*
 	tileset = new Cesium.Cesium3DTileset({
@@ -107,6 +159,48 @@ function loadTileset(){
 	    throw(error);
 	});
 	*/
+}
+
+//https://www.yht7.com/news/263361
+function initStaffImg(){
+	var position = Cesium.Cartesian3.fromDegrees(milkTruckEnLong,milkTruckEnLat, 0);
+	var position2 = Cesium.Cartesian3.fromDegrees(milkTruckEnLong,milkTruckEnLat, 40);
+    var heading = Cesium.Math.toRadians(135);
+    var pitch = 0;
+    var roll = 0;
+    var hpr = new Cesium.HeadingPitchRoll(heading, pitch, roll);
+    var orientation = Cesium.Transforms.headingPitchRollQuaternion(position, hpr);
+	
+    viewer.entities.add({
+      position: position,
+      billboard: {
+          //图标
+          image: 'http://localhost:8080/PositionPhZY/upload/staff.jpg',
+          width: 40,
+          height: 40,
+          scale: 1,
+          pixelOffset: new Cesium.Cartesian2(0, -30),
+        },
+    });
+	
+	viewer.entities.add({
+      position: position2,
+      label: { //文字标签
+          text: '密闭空间可燃气体监测仪',
+          font: '500 20px Helvetica',// 15pt monospace
+          scale: 1,
+          style: Cesium.LabelStyle.FILL,
+          fillColor: Cesium.Color.WHITE,
+          // pixelOffset: new Cesium.Cartesian2(0, 0),   //偏移量
+          eyeOffset: new Cesium.Cartesian3(0.0, 10.0, -15.0),
+          // horizontalOrigin: Cesium.HorizontalOrigin.LEFT,
+          verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+          showBackground: true,
+          // heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+          // disableDepthTestDistance: Number.POSITIVE_INFINITY,
+          // backgroundColor: new Cesium.Color(26 / 255, 196 / 255, 228 / 255, 1.0)   //背景顔色
+      },
+    });
 }
  </script>
 </head>
