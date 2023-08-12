@@ -6,6 +6,23 @@ public class Constant {
 	public static final String SERVICE_PORT_STR="servicePort";
 	public static final String CLIENT_ID_STR="clientId";
 	public static final String CLIENT_SECRET_STR="clientSecret";
+	
+	/**
+	 * RabbitMq接收推送消息的ip
+	 */
+	public static final String CONN_FACTORY_HOST="127.0.0.1";
+	/**
+	 * RabbitMq接收推送消息的端口号
+	 */
+	public static final int CONN_FACTORY_PORT=5672;
+	/**
+	 * RabbitMq接收推送消息的用户名
+	 */
+	public static final String CONN_FACTORY_USERNAME="admin";
+	/**
+	 * RabbitMq接收推送消息的密码
+	 */
+	public static final String CONN_FACTORY_PASSWORD="admin";
 
 	/**
 	 * 潍坊润中精细化工有限公司
