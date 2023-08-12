@@ -38,6 +38,18 @@ public class PhoneController {
 	@Autowired
 	private StaffService staffService;
 
+	@RequestMapping(value="/goPage")
+	public String goPage(HttpServletRequest request) {
+
+		//http://localhost:8080/PositionPhZY3_1/phone/goPage?page=testMap
+		String url = null;
+		String page = request.getParameter("page");
+		if("testMap".equals(page)){
+			url=MODULE_NAME+"/testMap";
+		}
+		return url;
+	}
+
 	@RequestMapping(value="/login")
 	@ResponseBody
 	public Map<String, Object> login(HttpServletRequest request) {

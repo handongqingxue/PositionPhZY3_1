@@ -127,7 +127,7 @@ public class ServerReceiver {
 						String method = bodyJO.getString("method");
 						if("position".equals(method)) {
 							JSONObject paramsJO = bodyJO.getJSONObject("params");
-							//insertPositionData(paramsJO,databaseName);
+							insertPositionData(paramsJO,databaseName);
 						}
 						else if("keyWarning".equals(method)) {
 							JSONObject paramsJO = bodyJO.getJSONObject("params");
