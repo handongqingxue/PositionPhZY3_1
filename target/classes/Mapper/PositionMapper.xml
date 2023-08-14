@@ -218,4 +218,7 @@
 	<select id="queryELList" resultType="com.positionPhZY3_1.entity.Position">
 		select p.*,s.jobNumber from ${databaseName}.position p left join ${databaseName}.staff s on p.tagId=s.tagId
 	</select>
+	<select id="getStaffPositionList" resultType="com.positionPhZY3_1.entity.Position">
+		select s.id staffId,s.`name` staffName,p.* from position p,staff s where p.tagId=s.tagId
+	</select>
 </mapper>

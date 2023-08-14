@@ -15,4 +15,6 @@ public interface PositionService {
 	 */
 	List<Position> queryELList(String databaseName);
 
+	List<Position> getStaffPositionList();
+
 }

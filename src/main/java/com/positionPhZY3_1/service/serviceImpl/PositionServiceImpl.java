@@ -32,4 +32,10 @@ public class PositionServiceImpl implements PositionService {
 		// TODO Auto-generated method stub
 		return positionDao.queryELList(databaseName);
 	}
+
+	@Override
+	public List<Position> getStaffPositionList() {
+		// TODO Auto-generated method stub
+		return positionDao.getStaffPositionList();
+	}
 }

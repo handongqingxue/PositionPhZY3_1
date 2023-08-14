@@ -37,6 +37,8 @@ public class PhoneController {
 	private EpLoginClientService epLoginClientService;
 	@Autowired
 	private StaffService staffService;
+	@Autowired
+	private PositionService positionService;
 
 	@RequestMapping(value="/goPage")
 	public String goPage(HttpServletRequest request) {
@@ -48,6 +50,26 @@ public class PhoneController {
 			url=MODULE_NAME+"/testMap";
 		}
 		return url;
+	}
+	
+	@RequestMapping(value="/getStaffPositionList")
+	@ResponseBody
+	public Map<String, Object> getStaffPositionList() {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		List<Position> positionList=positionService.getStaffPositionList();
+
+		if(positionList.size()==0) {
+			jsonMap.put("status", "no");
+			jsonMap.put("info", "暂无信息");
+		}
+		else {
+			jsonMap.put("status", "ok");
+			jsonMap.put("positionList", positionList);
+		}
+		
+		return jsonMap;
 	}
 
 	@RequestMapping(value="/login")

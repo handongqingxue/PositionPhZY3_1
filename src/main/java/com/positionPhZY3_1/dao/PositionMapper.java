@@ -15,4 +15,6 @@ public interface PositionMapper {
 	int getCountByTagId(@Param("tagId")String tagId, @Param("databaseName")String databaseName);
 
 	List<Position> queryELList(@Param("databaseName")String databaseName);
+
+	List<Position> getStaffPositionList();
 }

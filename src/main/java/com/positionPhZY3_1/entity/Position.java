@@ -141,6 +141,18 @@ public class Position {
 	public void setJobNumber(String jobNumber) {
 		this.jobNumber = jobNumber;
 	}
+	public Integer getStaffId() {
+		return staffId;
+	}
+	public void setStaffId(Integer staffId) {
+		this.staffId = staffId;
+	}
+	public String getStaffName() {
+		return staffName;
+	}
+	public void setStaffName(String staffName) {
+		this.staffName = staffName;
+	}
 	private Float altitude;
 	private Integer areaId;
 	private Integer floor;
@@ -163,4 +175,6 @@ public class Position {
 	private Float y;
 	private Float z;
 	private String jobNumber;
+	private Integer staffId;
+	private String staffName;
 }

@@ -17,6 +17,7 @@
  -->
 <title>Insert title here</title>
 <script>  
+var path='<%=basePath%>';
 var milkTruckEnLong=119.55105849594228;
 var milkTruckEnLat=37.04075799355465;
 
@@ -25,10 +26,43 @@ Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOi
 $(function(){
 	initViewer();
 	loadTileset();
-	initStaffImg();
+	//initStaffImg();
+	getStaffPositionList();
 	//loadEntitiesFlagImg();
 	//loadEntitiesRectImg(-150.0, 10.0, -120.0, 30.0,'http://localhost:8080/PositionPhZY/upload/IMG_20200823_151415.jpg',3);
+	setInterval(() => {
+		refreshEntities();
+	}, 3000);
 });
+
+function refreshEntities(){
+	$.post(path+"phone/getStaffPositionList",
+		function(data){
+			if(data.status=="ok"){
+				var positionList=data.positionList;
+				for(var i=0;i<positionList.length;i++){
+					var position=positionList[i];
+					var milkTruckEn=viewer.entities.getById("staff"+position.staffId);
+					milkTruckEn.position=Cesium.Cartesian3.fromDegrees(position.longitude,position.latitude,position.z);
+				}
+			}
+		}
+	,"json");
+}
+
+function getStaffPositionList(){
+	$.post(path+"phone/getStaffPositionList",
+		function(data){
+			if(data.status=="ok"){
+				var positionList=data.positionList;
+				for(var i=0;i<positionList.length;i++){
+					var position=positionList[i];
+					initStaffImg(position.longitude,position.latitude,position.staffId,position.staffName,position.floor);
+				}
+			}
+		}
+	,"json");
+}
 
 function initViewer(){
 	viewer = new Cesium.Viewer('cesiumContainer');
@@ -162,9 +196,9 @@ function loadTileset(){
 }
 
 //https://www.yht7.com/news/263361
-function initStaffImg(){
-	var position = Cesium.Cartesian3.fromDegrees(milkTruckEnLong,milkTruckEnLat, 0);
-	var position2 = Cesium.Cartesian3.fromDegrees(milkTruckEnLong,milkTruckEnLat, 40);
+function initStaffImg(longitude,latitude,staffId,staffName,floor){
+	var position = Cesium.Cartesian3.fromDegrees(longitude,latitude, 0);
+	var position2 = Cesium.Cartesian3.fromDegrees(longitude,latitude, 40);
     var heading = Cesium.Math.toRadians(135);
     var pitch = 0;
     var roll = 0;
@@ -172,6 +206,7 @@ function initStaffImg(){
     var orientation = Cesium.Transforms.headingPitchRollQuaternion(position, hpr);
 	
     viewer.entities.add({
+	  id:"staff"+staffId,
       position: position,
       billboard: {
           //图标
@@ -186,7 +221,7 @@ function initStaffImg(){
 	viewer.entities.add({
       position: position2,
       label: { //文字标签
-          text: '密闭空间可燃气体监测仪',
+          text: staffName+"("+floor+"层)",
           font: '500 20px Helvetica',// 15pt monospace
           scale: 1,
           style: Cesium.LabelStyle.FILL,
