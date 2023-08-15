@@ -51,16 +51,16 @@ public class Position {
 	public void setLabInTime(Integer labInTime) {
 		this.labInTime = labInTime;
 	}
-	public Float getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(Float longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
-	public Float getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(Float latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 	public Integer getLocationTime() {
@@ -160,8 +160,8 @@ public class Position {
 	private String entityType;
 	private Long inDoor;
 	private Integer labInTime;
-	private Float longitude;
-	private Float latitude;
+	private Double longitude;
+	private Double latitude;
 	private Integer locationTime;
 	private Boolean out;
 	private Integer rootAreaId;

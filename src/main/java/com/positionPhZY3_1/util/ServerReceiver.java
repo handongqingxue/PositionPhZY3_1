@@ -165,9 +165,11 @@ public class ServerReceiver {
 			String entityType = paramsJO.getString("entityType");
 			Integer floor = paramsJO.getInteger("floor");
 			Long inDoor = paramsJO.getLong("inDoor");
-			Float latitude = paramsJO.getFloat("latitude");
+			Double latitude = paramsJO.getDouble("latitude");
+			System.out.println("latitude===="+latitude);
 			Integer locationTime = paramsJO.getInteger("locationTime");
-			Float longitude = paramsJO.getFloat("longitude");
+			Double longitude = paramsJO.getDouble("longitude");
+			System.out.println("longitude===="+longitude);
 			Boolean out = paramsJO.getBoolean("out");
 			Integer rootAreaId = paramsJO.getInteger("rootAreaId");
 			Boolean silent = paramsJO.getBoolean("silent");

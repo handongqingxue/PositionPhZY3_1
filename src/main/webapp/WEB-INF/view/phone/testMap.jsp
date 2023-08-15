@@ -18,7 +18,7 @@
 <title>Insert title here</title>
 <script>  
 var path='<%=basePath%>';
-var milkTruckEnLong=119.55105849594228;
+var milkTruckEnLong=119.566;
 var milkTruckEnLat=37.04075799355465;
 
 var viewer;
@@ -32,7 +32,7 @@ $(function(){
 	//loadEntitiesRectImg(-150.0, 10.0, -120.0, 30.0,'http://localhost:8080/PositionPhZY/upload/IMG_20200823_151415.jpg',3);
 	setInterval(() => {
 		refreshEntities();
-	}, 3000);
+	}, 500);
 });
 
 function refreshEntities(){
@@ -42,8 +42,16 @@ function refreshEntities(){
 				var positionList=data.positionList;
 				for(var i=0;i<positionList.length;i++){
 					var position=positionList[i];
-					var milkTruckEn=viewer.entities.getById("staff"+position.staffId);
-					milkTruckEn.position=Cesium.Cartesian3.fromDegrees(position.longitude,position.latitude,position.z);
+					var staffEn=viewer.entities.getById("staff"+position.staffId);
+					var staffNameEn=viewer.entities.getById("staffName"+position.staffId);
+					//if(position.staffName=="高路路"){
+						console.log("longitude===="+position.longitude+","+position.latitude+","+position.staffId+","+position.staffName+","+position.floor);
+						if(staffEn!=undefined)
+							staffEn.position=Cesium.Cartesian3.fromDegrees(position.longitude,position.latitude,position.z);
+						if(staffNameEn!=undefined)
+							staffNameEn.position=Cesium.Cartesian3.fromDegrees(position.longitude,position.latitude,position.z+40);
+						//milkTruckEnLong-=0.00001;
+					//}
 				}
 			}
 		}
@@ -57,7 +65,9 @@ function getStaffPositionList(){
 				var positionList=data.positionList;
 				for(var i=0;i<positionList.length;i++){
 					var position=positionList[i];
-					initStaffImg(position.longitude,position.latitude,position.staffId,position.staffName,position.floor);
+					//if(position.staffName=="高路路"){
+						initStaffImg(position.longitude,position.latitude,position.staffId,position.staffName,position.floor);
+					//}
 				}
 			}
 		}
@@ -205,6 +215,7 @@ function initStaffImg(longitude,latitude,staffId,staffName,floor){
     var hpr = new Cesium.HeadingPitchRoll(heading, pitch, roll);
     var orientation = Cesium.Transforms.headingPitchRollQuaternion(position, hpr);
 	
+    console.log("staffId==="+staffId)
     viewer.entities.add({
 	  id:"staff"+staffId,
       position: position,
@@ -219,6 +230,7 @@ function initStaffImg(longitude,latitude,staffId,staffName,floor){
     });
 	
 	viewer.entities.add({
+	  id:"staffName"+staffId,
       position: position2,
       label: { //文字标签
           text: staffName+"("+floor+"层)",
