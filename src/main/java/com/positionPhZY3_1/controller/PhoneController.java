@@ -39,6 +39,8 @@ public class PhoneController {
 	private StaffService staffService;
 	@Autowired
 	private PositionService positionService;
+	@Autowired
+	private AreaService areaService;
 
 	@RequestMapping(value="/goPage")
 	public String goPage(HttpServletRequest request) {
@@ -180,6 +182,394 @@ public class PhoneController {
 			return resultMap;
 		}
 	}
+
+	@RequestMapping(value="/apiAreaAllList")
+	@ResponseBody
+	public Map<String, Object> apiAreaAllList(HttpServletRequest request) {
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			JSONObject resultJO = null;
+			JSONObject bodyParamJO=new JSONObject();
+			
+			String apiMethod="api/area/allList";
+			String params="/100?access_token=86aeb9db-262c-4bee-94e5-63aa7f64b77d";
+			resultJO = requestApi(apiMethod,params,bodyParamJO,"GET",request);
+			resultMap=JSON.parseObject(resultJO.toString());
+			/*
+			 * {
+			    "msg": "操作成功",
+			    "code": 200,
+			    "data": [
+			        {
+			            "id": 1,
+			            "parentId": null,
+			            "name": "总图"
+			        },
+			        {
+			            "id": 2,
+			            "parentId": 1,
+			            "name": "道路"
+			        },
+			        {
+			            "id": 3,
+			            "parentId": 1,
+			            "name": "F1"
+			        },
+			        {
+			            "id": 4,
+			            "parentId": 1,
+			            "name": "F2"
+			        },
+			        {
+			            "id": 5,
+			            "parentId": 1,
+			            "name": "F3"
+			        },
+			        {
+			            "id": 6,
+			            "parentId": 1,
+			            "name": "F4"
+			        }
+			    ]
+			}
+			 * */
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			return resultMap;
+		}
+	}
+
+	@RequestMapping(value="/apiBuildingAllList")
+	@ResponseBody
+	public Map<String, Object> apiBuildingAllList(HttpServletRequest request) {
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			JSONObject resultJO = null;
+			JSONObject bodyParamJO=new JSONObject();
+			
+			String apiMethod="api/building/allList";
+			String params="/100?access_token=c022270c-84ef-41fa-b98a-184d38122fe3";
+			resultJO = requestApi(apiMethod,params,bodyParamJO,"GET",request);
+			resultMap=JSON.parseObject(resultJO.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			return resultMap;
+		}
+	}
+
+	@RequestMapping(value="/apiDeviceList")
+	@ResponseBody
+	public Map<String, Object> apiDeviceList(HttpServletRequest request) {
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			JSONObject resultJO = null;
+			JSONObject bodyParamJO=new JSONObject();
+			bodyParamJO.put("deviceType", "BTR");
+			bodyParamJO.put("orgId", 100);
+			bodyParamJO.put("pageNum", 1);
+			bodyParamJO.put("pageSize", 200);
+			
+			String apiMethod="api/device/allList";
+			String params="";
+			resultJO = requestApi(apiMethod,params,bodyParamJO,"POST",request);
+			resultMap=JSON.parseObject(resultJO.toString());
+			/*
+			 {
+			    "msg": "操作成功",
+			    "code": 200,
+			    "data": {
+			        "records": [
+			            {
+			                "id": 11863,
+			                "deviceId": "BTR8BFCA195",
+			                "areaId": 1,
+			                "deviceType": "BTR",
+			                "volt": 0,
+			                "voltUnit": "mV",
+			                "options": "{\"initMark\":669,\"address\":\"192.168.124.2:49152\",\"labelId\":7263,\"firmVer\":\"0314\",\"timeDiff\":0,\"modularState\":\"0000\",\"isSend\":true,\"state\":0,\"hardVer\":\"0004\",\"locationsignaltype\":0,\"flowId\":123310,\"deviceId\":\"BTR8BFCA195\"}",
+			                "orgId": null,
+			                "createTime": null,
+			                "createBy": null,
+			                "updateTime": null,
+			                "updateBy": null,
+			                "deleted": null,
+			                "remark": null,
+			                "time": 1692080453547,
+			                "x": 93.7799911556,
+			                "y": 58.85684075280001,
+			                "z": 0.0,
+			                "r": 0.0,
+			                "areaName": "总图",
+			                "ip": null,
+			                "port": null,
+			                "longitude": 119.5650291936478,
+			                "latitude": 37.04300990011995
+			            },
+			            {
+			                "id": 11825,
+			                "deviceId": "BTRB9B96309",
+			                "areaId": 1,
+			                "deviceType": "BTR",
+			                "volt": 0,
+			                "voltUnit": "mV",
+			                "options": "{\"initMark\":377,\"address\":\"192.168.124.2:49152\",\"labelId\":7270,\"firmVer\":\"0314\",\"modularState\":\"0000\",\"state\":0,\"hardVer\":\"0004\",\"locationsignaltype\":0,\"flowId\":100859,\"deviceId\":\"BTRB9B96309\"}",
+			                "orgId": null,
+			                "createTime": null,
+			                "createBy": null,
+			                "updateTime": null,
+			                "updateBy": null,
+			                "deleted": null,
+			                "remark": null,
+			                "time": 1692080402092,
+			                "x": 317.12473672220005,
+			                "y": 115.34925553800002,
+			                "z": 0.0,
+			                "r": 0.0,
+			                "areaName": "总图",
+			                "ip": null,
+			                "port": null,
+			                "longitude": 119.56753979469103,
+			                "latitude": 37.04351889073835
+			            },
+			            {
+			                "id": 11810,
+			                "deviceId": "BTR21044952",
+			                "areaId": 1,
+			                "deviceType": "BTR",
+			                "volt": 0,
+			                "voltUnit": "mV",
+			                "options": "{\"initMark\":409,\"address\":\"192.168.124.2:49152\",\"labelId\":7266,\"firmVer\":\"0314\",\"timeDiff\":0,\"modularState\":\"0000\",\"isSend\":true,\"state\":0,\"hardVer\":\"0004\",\"flowId\":266870,\"deviceId\":\"BTR21044952\"}",
+			                "orgId": null,
+			                "createTime": null,
+			                "createBy": null,
+			                "updateTime": null,
+			                "updateBy": null,
+			                "deleted": null,
+			                "remark": null,
+			                "time": 1692080551168,
+			                "x": 254.4462978777,
+			                "y": 166.3736569744,
+			                "z": 0.0,
+			                "r": 0.0,
+			                "areaName": "总图",
+			                "ip": null,
+			                "port": null,
+			                "longitude": 119.56683525042256,
+			                "latitude": 37.043978678316556
+			            },
+			            {
+			                "id": 11788,
+			                "deviceId": "BTR7262E316",
+			                "areaId": 1,
+			                "deviceType": "BTR",
+			                "volt": 0,
+			                "voltUnit": "mV",
+			                "options": "{\"initMark\":648,\"address\":\"192.168.124.2:49152\",\"labelId\":7265,\"firmVer\":\"0314\",\"timeDiff\":0,\"modularState\":\"0000\",\"isSend\":true,\"state\":0,\"hardVer\":\"0004\",\"locationsignaltype\":0,\"flowId\":84118,\"deviceId\":\"BTR7262E316\"}",
+			                "orgId": null,
+			                "createTime": null,
+			                "createBy": null,
+			                "updateTime": null,
+			                "updateBy": null,
+			                "deleted": null,
+			                "remark": null,
+			                "time": 1692080586419,
+			                "x": 196.2974490813,
+			                "y": 158.1415806889,
+			                "z": 0.0,
+			                "r": 0.0,
+			                "areaName": "总图",
+			                "ip": null,
+			                "port": null,
+			                "longitude": 119.56618159944603,
+			                "latitude": 37.04390451503328
+			            },
+			            {
+			                "id": 11713,
+			                "deviceId": "BTRFEFD48EF",
+			                "areaId": 1,
+			                "deviceType": "BTR",
+			                "volt": 0,
+			                "voltUnit": "mV",
+			                "options": "{\"initMark\":624,\"address\":\"192.168.124.2:49152\",\"labelId\":7264,\"timeDiff\":0,\"firmVer\":\"0314\",\"modularState\":\"0000\",\"isSend\":true,\"state\":0,\"hardVer\":\"0004\",\"locationsignaltype\":0,\"deviceId\":\"BTRFEFD48EF\",\"flowId\":121811}",
+			                "orgId": null,
+			                "createTime": null,
+			                "createBy": null,
+			                "updateTime": null,
+			                "updateBy": null,
+			                "deleted": null,
+			                "remark": null,
+			                "time": 1692080436099,
+			                "x": 184.9384083217,
+			                "y": 72.68717419040001,
+			                "z": 0.0,
+			                "r": 0.0,
+			                "areaName": "总图",
+			                "ip": null,
+			                "port": null,
+			                "longitude": 119.56605389206207,
+			                "latitude": 37.043134508384625
+			            },
+			            {
+			                "id": 11691,
+			                "deviceId": "BTR0AED48FC",
+			                "areaId": 1,
+			                "deviceType": "BTR",
+			                "volt": 0,
+			                "voltUnit": "mV",
+			                "options": "{\"initMark\":685,\"address\":\"192.168.124.2:49152\",\"labelId\":7267,\"firmVer\":\"0314\",\"timeDiff\":0,\"modularState\":\"0000\",\"isSend\":true,\"state\":0,\"hardVer\":\"0004\",\"locationsignaltype\":0,\"flowId\":136184,\"deviceId\":\"BTR0AED48FC\"}",
+			                "orgId": null,
+			                "createTime": null,
+			                "createBy": null,
+			                "updateTime": null,
+			                "updateBy": null,
+			                "deleted": null,
+			                "remark": null,
+			                "time": 1692080351890,
+			                "x": 277.4437913168,
+			                "y": 164.5669416517,
+			                "z": 0.0,
+			                "r": 0.0,
+			                "areaName": "总图",
+			                "ip": null,
+			                "port": null,
+			                "longitude": 119.56709376363915,
+			                "latitude": 37.04396239193032
+			            },
+			            {
+			                "id": 11687,
+			                "deviceId": "BTR4CDF163B",
+			                "areaId": null,
+			                "deviceType": "BTR",
+			                "volt": null,
+			                "voltUnit": "mV",
+			                "options": "{\"labelId\":7269,\"deviceId\":\"BTR4CDF163B\"}",
+			                "orgId": null,
+			                "createTime": null,
+			                "createBy": null,
+			                "updateTime": null,
+			                "updateBy": null,
+			                "deleted": null,
+			                "remark": null,
+			                "time": null,
+			                "x": null,
+			                "y": null,
+			                "z": null,
+			                "r": null,
+			                "areaName": null,
+			                "ip": null,
+			                "port": null,
+			                "longitude": null,
+			                "latitude": null
+			            },
+			            {
+			                "id": 11686,
+			                "deviceId": "BTRE1696617",
+			                "areaId": null,
+			                "deviceType": "BTR",
+			                "volt": null,
+			                "voltUnit": "mV",
+			                "options": "{\"labelId\":7268,\"deviceId\":\"BTRE1696617\"}",
+			                "orgId": null,
+			                "createTime": null,
+			                "createBy": null,
+			                "updateTime": null,
+			                "updateBy": null,
+			                "deleted": null,
+			                "remark": null,
+			                "time": null,
+			                "x": null,
+			                "y": null,
+			                "z": null,
+			                "r": null,
+			                "areaName": null,
+			                "ip": null,
+			                "port": null,
+			                "longitude": null,
+			                "latitude": null
+			            },
+			            {
+			                "id": 11685,
+			                "deviceId": "BTR26054F00",
+			                "areaId": 1,
+			                "deviceType": "BTR",
+			                "volt": 0,
+			                "voltUnit": "mV",
+			                "options": "{\"initMark\":17,\"address\":\"192.168.124.2:49152\",\"labelId\":7262,\"firmVer\":\"0314\",\"modularState\":\"0000\",\"state\":0,\"hardVer\":\"0004\",\"deviceId\":\"BTR26054F00\",\"flowId\":339245}",
+			                "orgId": null,
+			                "createTime": null,
+			                "createBy": null,
+			                "updateTime": null,
+			                "updateBy": null,
+			                "deleted": null,
+			                "remark": null,
+			                "time": 1692080357381,
+			                "x": 99.4851150181,
+			                "y": 136.75376707520002,
+			                "z": 0.0,
+			                "r": 0.0,
+			                "areaName": "总图",
+			                "ip": null,
+			                "port": null,
+			                "longitude": 119.56509333418241,
+			                "latitude": 37.04371180987256
+			            },
+			            {
+			                "id": 11678,
+			                "deviceId": "BTRFA9CFCA4",
+			                "areaId": 1,
+			                "deviceType": "BTR",
+			                "volt": 0,
+			                "voltUnit": "mV",
+			                "options": "{\"initMark\":47,\"address\":\"192.168.124.2:49152\",\"firmVer\":\"0136\",\"netState\":1,\"modularState\":\"0013\",\"deviceFlag\":1,\"deviceId\":\"BTRFA9CFCA4\",\"areaId\":1,\"labelId\":\"1106\",\"timeDiff\":0,\"crc\":\"0000000000000000\",\"overtime\":\"3600000\",\"isSend\":true,\"state\":0,\"hardVer\":\"0010\",\"validity\":\"00000000\",\"locationsignaltype\":0,\"flowId\":1188410}",
+			                "orgId": null,
+			                "createTime": null,
+			                "createBy": null,
+			                "updateTime": null,
+			                "updateBy": null,
+			                "deleted": null,
+			                "remark": null,
+			                "time": 1692080614901,
+			                "x": 62.9300208919,
+			                "y": 174.7192791397,
+			                "z": 0.0,
+			                "r": 0.0,
+			                "areaName": "总图",
+			                "ip": null,
+			                "port": null,
+			                "longitude": 119.56468242448767,
+			                "latitude": 37.04405391105554
+			            }
+			        ],
+			        "total": 10,
+			        "size": 10,
+			        "current": 1,
+			        "orders": [],
+			        "optimizeCountSql": true,
+			        "hitCount": false,
+			        "countId": null,
+			        "maxLimit": null,
+			        "searchCount": true,
+			        "pages": 1
+			    }
+			}
+			 * */
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			return resultMap;
+		}
+	}
 	
 	@RequestMapping(value="/insertStaffData")
 	@ResponseBody
@@ -230,6 +620,52 @@ public class PhoneController {
 		}
 	}
 	
+	@RequestMapping(value="/insertAreaData")
+	@ResponseBody
+	public Map<String, Object> insertAreaData(HttpServletRequest request) {
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			int epFlag = Integer.valueOf(request.getParameter("epFlag"));
+			System.out.println("epFlag==="+epFlag);
+			request.setAttribute("epFlag", epFlag);
+			Map<String, Object> areaListMap = apiAreaAllList(request);
+			String status = areaListMap.get("status").toString();
+			if("ok".equals(status)) {
+				Object dataObj = areaListMap.get("data");
+				com.alibaba.fastjson.JSONArray areaJA = null;
+				if(dataObj!=null) {
+					areaJA=(com.alibaba.fastjson.JSONArray)dataObj;
+				}
+				List<Area> areaList = JSON.parseArray(areaJA.toString(),Area.class);
+				String databaseName = request.getAttribute("databaseName").toString();
+				int count=areaService.add(areaList,databaseName);
+				if(count==0) {
+					resultMap.put("status", "no");
+					resultMap.put("message", "初始化地图信息失败");
+				}
+				else {
+					resultMap.put("status", "ok");
+					resultMap.put("message", "初始化地图信息成功");
+				}
+			}
+			else {
+				boolean success=reOauthToken(request);
+				System.out.println("success==="+success);
+				if(success) {
+					Thread.sleep(1000*60);//避免频繁操作，休眠60秒后再执行
+					resultMap=insertAreaData(request);
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			return resultMap;
+		}
+	}
+	
 	public boolean reOauthToken(HttpServletRequest request) {
 		//switchEnterprise(EP_FLAG,request);
 		Map<String, Object> resultMap = oauthToken(request);
@@ -245,7 +681,13 @@ public class PhoneController {
 		int servicePort=0;
 		String tenantId=null;
 		String databaseName=null;
-		int epFlag=Integer.valueOf(request.getAttribute("epFlag").toString());
+		Object epFlagObj = request.getAttribute("epFlag");
+		String epFlagStr = null;
+		if(epFlagObj==null)
+			epFlagStr = "6";
+		else
+			epFlagStr = epFlagObj.toString();
+		int epFlag=Integer.valueOf(epFlagStr);
 		switch (epFlag) {
 		/*
 		case Constant.WFPXHGYXGS:
@@ -336,8 +778,9 @@ public class PhoneController {
 					}
 				}
 					
-				if(!StringUtils.isEmpty(access_token))
+				if(!StringUtils.isEmpty(access_token)) {
 					connection.setRequestProperty("Authorization", "Bearer "+access_token);
+				}
 			}
 			connection.setRequestMethod(requestMethod);//请求方式
 			connection.setDoInput(true); 

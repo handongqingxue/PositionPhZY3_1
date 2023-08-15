@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.positionPhZY3_1.dao.AreaMapper">
+ 	<insert id="add">
+ 		insert into ${databaseName}.area
+ 		<trim prefix="(" suffix=")" suffixOverrides=",">
+ 			<if test="area.id!=null">
+ 				id,
+ 			</if>
+ 			<if test="area.parentId!=null">
+ 				parentId,
+ 			</if>
+ 			<if test="area.name!=null">
+ 				name,
+ 			</if>
+ 		</trim>
+ 		values
+ 		<trim prefix="(" suffix=")" suffixOverrides=",">
+ 			<if test="area.id!=null">
+ 				#{area.id},
+ 			</if>
+ 			<if test="area.parentId!=null">
+ 				#{area.parentId},
+ 			</if>
+ 			<if test="area.name!=null">
+ 				#{area.name},
+ 			</if>
+ 		</trim>
+ 	</insert>
+	<update id="edit">
+		update ${databaseName}.area set
+		<trim suffixOverrides=",">
+			<if test="area.parentId!=null">
+				parentId=#{area.parentId},
+			</if>
+			<if test="area.name!=null">
+				name=#{area.name},
+			</if>
+		</trim>
+		where id=#{area.id}
+	</update>
+	<select id="getCountById" resultType="java.lang.Integer">
+		select count(*) from ${databaseName}.area where id=#{id}
+	</select>
+</mapper>
