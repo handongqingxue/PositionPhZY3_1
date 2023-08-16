@@ -78,8 +78,13 @@ function initViewer(){
 	viewer = new Cesium.Viewer('cesiumContainer');
 	
 	//获取经纬度、高度链接：https://www.cnblogs.com/telwanggs/p/11289455.html
+	
+	//https://blog.csdn.net/qq_36213352/article/details/122465031
+	var scene=viewer.scene;
+	//scene.morphTo2D(0);
+	
 	//获取事件触发所在的  html Canvas容器
-    var canvas=viewer.scene.canvas;
+    var canvas=scene.canvas;
 
     //获取事件句柄
     var handler=new Cesium.ScreenSpaceEventHandler(canvas);
@@ -208,7 +213,7 @@ function loadTileset(){
 //https://www.yht7.com/news/263361
 function initStaffImg(longitude,latitude,staffId,staffName,floor){
 	var position = Cesium.Cartesian3.fromDegrees(longitude,latitude, 0);
-	var position2 = Cesium.Cartesian3.fromDegrees(longitude,latitude, 40);
+	var position2 = Cesium.Cartesian3.fromDegrees(longitude,latitude, 20);
     var heading = Cesium.Math.toRadians(135);
     var pitch = 0;
     var roll = 0;
@@ -216,6 +221,19 @@ function initStaffImg(longitude,latitude,staffId,staffName,floor){
     var orientation = Cesium.Transforms.headingPitchRollQuaternion(position, hpr);
 	
     console.log("staffId==="+staffId)
+    /*
+    //设置物体不被遮挡:https://blog.csdn.net/github_36091081/article/details/120082847
+    viewer.entities.add(new Cesium.Entity({
+        point: new Cesium.PointGraphics({
+          color: new Cesium.Color(1, 1, 0),
+          pixelSize: 10,
+          outlineColor: new Cesium.Color(0, 1, 1),
+          disableDepthTestDistance:Number.POSITIVE_INFINITY
+        }),
+       	position: Cesium.Cartesian3.fromDegrees(longitude, latitude, 1 + 0.5)
+    }));
+    */
+    
     viewer.entities.add({
 	  id:"staff"+staffId,
       position: position,
@@ -226,6 +244,7 @@ function initStaffImg(longitude,latitude,staffId,staffName,floor){
           height: 40,
           scale: 1,
           pixelOffset: new Cesium.Cartesian2(0, -30),
+          disableDepthTestDistance:Number.POSITIVE_INFINITY
         },
     });
 	
@@ -243,6 +262,7 @@ function initStaffImg(longitude,latitude,staffId,staffName,floor){
           // horizontalOrigin: Cesium.HorizontalOrigin.LEFT,
           verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
           showBackground: true,
+          disableDepthTestDistance:Number.POSITIVE_INFINITY,
           // heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
           // disableDepthTestDistance: Number.POSITIVE_INFINITY,
           // backgroundColor: new Cesium.Color(26 / 255, 196 / 255, 228 / 255, 1.0)   //背景顔色

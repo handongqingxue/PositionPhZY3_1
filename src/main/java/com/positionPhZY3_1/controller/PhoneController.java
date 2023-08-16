@@ -264,6 +264,57 @@ public class PhoneController {
 			return resultMap;
 		}
 	}
+	
+	@RequestMapping(value="/insertDeviceData")
+	@ResponseBody
+	public Map<String, Object> insertDeviceData(HttpServletRequest request) {
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			int epFlag = Integer.valueOf(request.getParameter("epFlag"));
+			System.out.println("epFlag==="+epFlag);
+			request.setAttribute("epFlag", epFlag);
+			Map<String, Object> deviceListMap = apiDeviceList(request);
+			String status = deviceListMap.get("status").toString();
+			if("ok".equals(status)) {
+				Object dataObj = deviceListMap.get("data");
+				com.alibaba.fastjson.JSONObject dataJO = null;
+				com.alibaba.fastjson.JSONArray recordJA = null;
+				if(dataObj!=null) {
+					dataJO=(com.alibaba.fastjson.JSONObject)dataObj;
+					recordJA = dataJO.getJSONArray("records");
+					
+				}
+				/*
+				List<Staff> deviceList = JSON.parseArray(recordJA.toString(),Device.class);
+				String databaseName = request.getAttribute("databaseName").toString();
+				int count=staffService.add(staffList,databaseName);
+				if(count==0) {
+					resultMap.put("status", "no");
+					resultMap.put("message", "初始化员工信息失败");
+				}
+				else {
+					resultMap.put("status", "ok");
+					resultMap.put("message", "初始化员工信息成功");
+				}
+				*/
+			}
+			else {
+				boolean success=reOauthToken(request);
+				System.out.println("success==="+success);
+				if(success) {
+					Thread.sleep(1000*60);//避免频繁操作，休眠60秒后再执行
+					resultMap=insertStaffData(request);
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			return resultMap;
+		}
+	}
 
 	@RequestMapping(value="/apiDeviceList")
 	@ResponseBody
@@ -278,7 +329,7 @@ public class PhoneController {
 			bodyParamJO.put("pageNum", 1);
 			bodyParamJO.put("pageSize", 200);
 			
-			String apiMethod="api/device/allList";
+			String apiMethod="api/device/list";
 			String params="";
 			resultJO = requestApi(apiMethod,params,bodyParamJO,"POST",request);
 			resultMap=JSON.parseObject(resultJO.toString());
