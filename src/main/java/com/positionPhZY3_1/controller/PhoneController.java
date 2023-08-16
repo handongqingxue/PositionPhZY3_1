@@ -41,15 +41,21 @@ public class PhoneController {
 	private PositionService positionService;
 	@Autowired
 	private AreaService areaService;
+	@Autowired
+	private DeviceService deviceService;
 
 	@RequestMapping(value="/goPage")
 	public String goPage(HttpServletRequest request) {
 
 		//http://localhost:8080/PositionPhZY3_1/phone/goPage?page=testMap
+		//http://localhost:8080/PositionPhZY3_1/phone/goPage?page=index
 		String url = null;
 		String page = request.getParameter("page");
 		if("testMap".equals(page)){
 			url=MODULE_NAME+"/testMap";
+		}
+		else {
+			url=MODULE_NAME+"/"+page;
 		}
 		return url;
 	}
@@ -285,26 +291,24 @@ public class PhoneController {
 					recordJA = dataJO.getJSONArray("records");
 					
 				}
-				/*
-				List<Staff> deviceList = JSON.parseArray(recordJA.toString(),Device.class);
+				List<Device> deviceList = JSON.parseArray(recordJA.toString(),Device.class);
 				String databaseName = request.getAttribute("databaseName").toString();
-				int count=staffService.add(staffList,databaseName);
+				int count=deviceService.add(deviceList,databaseName);
 				if(count==0) {
 					resultMap.put("status", "no");
-					resultMap.put("message", "初始化员工信息失败");
+					resultMap.put("message", "初始化设备信息失败");
 				}
 				else {
 					resultMap.put("status", "ok");
-					resultMap.put("message", "初始化员工信息成功");
+					resultMap.put("message", "初始化设备信息成功");
 				}
-				*/
 			}
 			else {
 				boolean success=reOauthToken(request);
 				System.out.println("success==="+success);
 				if(success) {
 					Thread.sleep(1000*60);//避免频繁操作，休眠60秒后再执行
-					resultMap=insertStaffData(request);
+					resultMap=insertDeviceData(request);
 				}
 			}
 		} catch (Exception e) {
@@ -324,7 +328,7 @@ public class PhoneController {
 		try {
 			JSONObject resultJO = null;
 			JSONObject bodyParamJO=new JSONObject();
-			bodyParamJO.put("deviceType", "BTR");
+			bodyParamJO.put("deviceType", "BTG");
 			bodyParamJO.put("orgId", 100);
 			bodyParamJO.put("pageNum", 1);
 			bodyParamJO.put("pageSize", 200);

@@ -3,4 +3,207 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.positionPhZY3_1.dao.DeviceMapper">
+ 	<insert id="add">
+ 		insert into ${databaseName}.device
+ 		<trim prefix="(" suffix=")" suffixOverrides=",">
+ 			<if test="device.id!=null">
+ 				id,
+ 			</if>
+ 			<if test="device.deviceId!=null">
+ 				deviceId,
+ 			</if>
+ 			<if test="device.areaId!=null">
+ 				areaId,
+ 			</if>
+ 			<if test="device.deviceType!=null">
+ 				deviceType,
+ 			</if>
+ 			<if test="device.volt!=null">
+ 				volt,
+ 			</if>
+ 			<if test="device.options!=null">
+ 				options,
+ 			</if>
+ 			<if test="device.orgId!=null">
+ 				orgId,
+ 			</if>
+ 			<if test="device.createTime!=null">
+ 				createTime,
+ 			</if>
+ 			<if test="device.createBy!=null">
+ 				createBy,
+ 			</if>
+ 			<if test="device.deleted!=null">
+ 				deleted,
+ 			</if>
+ 			<if test="device.remark!=null">
+ 				remark,
+ 			</if>
+ 			<if test="device.time!=null">
+ 				time,
+ 			</if>
+ 			<if test="device.x!=null">
+ 				x,
+ 			</if>
+ 			<if test="device.y!=null">
+ 				y,
+ 			</if>
+ 			<if test="device.z!=null">
+ 				z,
+ 			</if>
+ 			<if test="device.r!=null">
+ 				r,
+ 			</if>
+ 			<if test="device.areaName!=null">
+ 				areaName,
+ 			</if>
+ 			<if test="device.ip!=null">
+ 				ip,
+ 			</if>
+ 			<if test="device.port!=null">
+ 				port,
+ 			</if>
+ 			<if test="device.longitude!=null">
+ 				longitude,
+ 			</if>
+ 			<if test="device.latitude!=null">
+ 				latitude,
+ 			</if>
+ 		</trim>
+ 		values
+ 		<trim prefix="(" suffix=")" suffixOverrides=",">
+ 			<if test="device.id!=null">
+ 				#{device.id},
+ 			</if>
+ 			<if test="device.deviceId!=null">
+ 				#{device.deviceId},
+ 			</if>
+ 			<if test="device.areaId!=null">
+ 				#{device.areaId},
+ 			</if>
+ 			<if test="device.deviceType!=null">
+ 				#{device.deviceType},
+ 			</if>
+ 			<if test="device.volt!=null">
+ 				#{device.volt},
+ 			</if>
+ 			<if test="device.options!=null">
+ 				#{device.options},
+ 			</if>
+ 			<if test="device.orgId!=null">
+ 				#{device.orgId},
+ 			</if>
+ 			<if test="device.createTime!=null">
+ 				#{device.createTime},
+ 			</if>
+ 			<if test="device.createBy!=null">
+ 				#{device.createBy},
+ 			</if>
+ 			<if test="device.deleted!=null">
+ 				#{device.deleted},
+ 			</if>
+ 			<if test="device.remark!=null">
+ 				#{device.remark},
+ 			</if>
+ 			<if test="device.time!=null">
+ 				#{device.time},
+ 			</if>
+ 			<if test="device.x!=null">
+ 				#{device.x},
+ 			</if>
+ 			<if test="device.y!=null">
+ 				#{device.y},
+ 			</if>
+ 			<if test="device.z!=null">
+ 				#{device.z},
+ 			</if>
+ 			<if test="device.r!=null">
+ 				#{device.r},
+ 			</if>
+ 			<if test="device.areaName!=null">
+ 				#{device.areaName},
+ 			</if>
+ 			<if test="device.ip!=null">
+ 				#{device.ip},
+ 			</if>
+ 			<if test="device.port!=null">
+ 				#{device.port},
+ 			</if>
+ 			<if test="device.longitude!=null">
+ 				#{device.longitude},
+ 			</if>
+ 			<if test="device.latitude!=null">
+ 				#{device.latitude},
+ 			</if>
+ 		</trim>
+ 	</insert>
+	<update id="edit">
+		update ${databaseName}.device set
+		<trim suffixOverrides=",">
+ 			<if test="device.deviceId!=null">
+ 				deviceId=#{device.deviceId},
+ 			</if>
+			<if test="device.areaId!=null">
+				areaId=#{device.areaId},
+			</if>
+			<if test="device.deviceType!=null">
+				deviceType=#{device.deviceType},
+			</if>
+			<if test="device.volt!=null">
+				volt=#{device.volt},
+			</if>
+			<if test="device.options!=null">
+				options=#{device.options},
+			</if>
+			<if test="device.orgId!=null">
+				orgId=#{device.orgId},
+			</if>
+			<if test="device.createTime!=null">
+				createTime=#{device.createTime},
+			</if>
+			<if test="device.createBy!=null">
+				createBy=#{device.createBy},
+			</if>
+			<if test="device.deleted!=null">
+				deleted=#{device.deleted},
+			</if>
+			<if test="device.remark!=null">
+				remark=#{device.remark},
+			</if>
+			<if test="device.time!=null">
+				time=#{device.time},
+			</if>
+			<if test="device.x!=null">
+				x=#{device.x},
+			</if>
+			<if test="device.y!=null">
+				y=#{device.y},
+			</if>
+			<if test="device.z!=null">
+				z=#{device.z},
+			</if>
+			<if test="device.r!=null">
+				r=#{device.r},
+			</if>
+			<if test="device.areaName!=null">
+				areaName=#{device.areaName},
+			</if>
+			<if test="device.ip!=null">
+				ip=#{device.ip},
+			</if>
+			<if test="device.port!=null">
+				port=#{device.port},
+			</if>
+			<if test="device.longitude!=null">
+				longitude=#{device.longitude},
+			</if>
+			<if test="device.latitude!=null">
+				latitude=#{device.latitude},
+			</if>
+		</trim>
+		where id=#{device.id}
+	</update>
+	<select id="getCountById" resultType="java.lang.Integer">
+		select count(*) from ${databaseName}.device where id=#{id}
+	</select>
 </mapper>
