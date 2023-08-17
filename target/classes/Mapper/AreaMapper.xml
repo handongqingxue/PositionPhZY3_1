@@ -44,4 +44,7 @@
 	<select id="getCountById" resultType="java.lang.Integer">
 		select count(*) from ${databaseName}.area where id=#{id}
 	</select>
+	<select id="querySelectData" resultType="com.positionPhZY3_1.entity.Area">
+		select * from area
+	</select>
 </mapper>

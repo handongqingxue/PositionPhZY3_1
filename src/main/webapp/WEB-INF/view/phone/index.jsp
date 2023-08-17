@@ -13,8 +13,10 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 var phonePath=path+"phone/";
+var selectedFloorValue="";
 $(function(){
 	showSSTJDiv(false);
+	summaryOnlineData();
 });
 
 function showSSTJDiv(flag){
@@ -28,6 +30,60 @@ function showSSTJDiv(flag){
 		xssstjButImg.css("display","block");
 		sstjDiv.css("display","none");
 	}
+}
+
+function summaryOnlineData(){
+	$.post("summaryOnlineData",
+		function(data){
+			var entityResult=data.entityResult;
+			var childAreaList=data.childAreaList;
+			console.log(entityResult);
+			initFloorSel(entityResult,childAreaList);
+			//initSSDWCanvas(0);
+		}
+	,"json");
+}
+
+function initFloorSel(entityResult,childAreaList){
+	var floorSel=$("#floor_sel");
+	floorSel.empty();
+	var name=entityResult.name;
+	var summary=entityResult.summary;
+	var online=summary.online;
+	floorSel.append("<option value=\"\">"+name+" ("+online.total+")</option>");
+	
+	var children=entityResult.children;
+	for(var i=0;i<children.length;i++){
+		var child=children[i];
+		var optionValue;
+		var childAreaId=child.areaId;
+		var childName=child.name;
+		/*
+		switch (childName) {
+		case "道路":
+			optionValue=0;
+			break;
+		case "厂房一层":
+			optionValue=1;
+			break;
+		case "厂房二层":
+			optionValue=2;
+			break;
+		case "厂房三层":
+			optionValue=3;
+			break;
+		}
+		*/
+		for(var j=0;j<childAreaList.length;j++){
+			var childArea=childAreaList[j];
+			if(childAreaId==childArea.id){
+				optionValue=childArea.value;
+				floorSel.append("<option value=\""+optionValue+"\" "+(selectedFloorValue==optionValue?"selected":"")+">"+childName+" ("+child.summary.online.total+")</option>");
+				break;
+			}
+		}
+	}
+	//console.log(JSON.stringify(children));
 }
 </script>
 <style type="text/css">
@@ -67,11 +123,6 @@ body{
 .sstj_div .row_close_div{
 	width: 100%;
 	height: 24px;
-}
-.sstj_div .row_dtrs_div,.sstj_div .row_duty_div{
-	width: 100%;
-	height: 40px;
-	line-height: 40px;
 }
 .sstj_div .row_label_div{
 	width: 100%;
@@ -131,11 +182,6 @@ body{
 	<div class="row_dtrs_div">
 		<span class="dtrs_span">地图人数</span>
 		<select class="floor_sel" id="floor_sel" onchange="initSSDWCanvas(0);">
-		</select>
-	</div>
-	<div class="row_duty_div">
-		<span class="duty_span">实体人数</span>
-		<select class="duty_sel" id="duty_sel">
 		</select>
 	</div>
 	<div class="row_label_div">

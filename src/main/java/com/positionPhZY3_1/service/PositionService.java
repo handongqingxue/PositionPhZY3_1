@@ -1,6 +1,7 @@
 package com.positionPhZY3_1.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.positionPhZY3_1.entity.*;
 
@@ -16,5 +17,7 @@ public interface PositionService {
 	List<Position> queryELList(String databaseName);
 
 	List<Position> getStaffPositionList();
+
+	Map<String, Object> summaryOnlineEntity();
 
 }

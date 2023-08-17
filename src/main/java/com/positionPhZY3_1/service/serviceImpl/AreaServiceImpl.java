@@ -29,4 +29,10 @@ public class AreaServiceImpl implements AreaService {
 		return count;
 	}
 
+	@Override
+	public List<Area> querySelectData() {
+		// TODO Auto-generated method stub
+		return areaDao.querySelectData();
+	}
+
 }

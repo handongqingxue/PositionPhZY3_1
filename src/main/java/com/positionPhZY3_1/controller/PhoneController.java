@@ -59,6 +59,22 @@ public class PhoneController {
 		}
 		return url;
 	}
+
+	@RequestMapping(value="/summaryOnlineData")
+	@ResponseBody
+	public Map<String, Object> summaryOnlineData() {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		Map<String, Object> soerMap=positionService.summaryOnlineEntity();
+		
+		List<Area> areaList=areaService.querySelectData();
+		
+		jsonMap.put("entityResult", soerMap);
+		jsonMap.put("childAreaList", areaList);
+		
+		return jsonMap;
+	}
 	
 	@RequestMapping(value="/getStaffPositionList")
 	@ResponseBody

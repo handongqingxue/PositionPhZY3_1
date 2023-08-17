@@ -1,6 +1,7 @@
 package com.positionPhZY3_1.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -17,4 +18,6 @@ public interface PositionMapper {
 	List<Position> queryELList(@Param("databaseName")String databaseName);
 
 	List<Position> getStaffPositionList();
+
+	List<Map<String, Object>> summaryOnlineEntity();
 }

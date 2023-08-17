@@ -221,4 +221,7 @@
 	<select id="getStaffPositionList" resultType="com.positionPhZY3_1.entity.Position">
 		select s.id staffId,s.`name` staffName,p.* from position p,staff s where p.tagId=s.tagId
 	</select>
+	<select id="summaryOnlineEntity" resultType="java.util.Map">
+		select a.`name`,p.areaId,count(p.areaId) total from position p,area a where p.areaId=a.id GROUP BY p.areaId
+	</select>
 </mapper>
