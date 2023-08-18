@@ -10,8 +10,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <script type="text/javascript" src="<%=basePath %>resource/js/jquery-3.3.1.js"></script>
+<!-- 
 <script src="https://cesiumjs.org/releases/1.56.1/Build/Cesium/Cesium.js"></script>  
-<link href="https://cesiumjs.org/releases/1.56.1/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+<link href="https://cesiumjs.org/releases/1.56.1/Build/Cesium/Widgets/widgets.css" rel="stylesheet"> 
+https://cesium.com/downloads/
+-->
+<script src="<%=basePath %>resource/cesiumjs/releases/1.56.1/Build/Cesium/Cesium.js"></script>
+<link href="<%=basePath %>resource/cesiumjs/releases/1.56.1/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 <script type="text/javascript">
 var path='<%=basePath %>';
 var phonePath=path+"phone/";
@@ -79,7 +84,7 @@ function initViewer(){
 
 function loadTileset(){
 	var tileset = new Cesium.Cesium3DTileset({
-	   url: "http://localhost:8080/PositionPhZY/upload/b3dm/tileset.json",
+	   url: "http://192.168.1.100:8080/PositionPhZY/upload/b3dm/tileset.json",
 	   shadows:Cesium.ShadowMode.DISABLED,//去除阴影
 	});
 	//console.log(tileset)
@@ -102,7 +107,7 @@ function initStaffImg(longitude,latitude,staffId,staffName,floor){
       position: staffPosition,
       billboard: {
         //图标
-        image: 'http://localhost:8080/PositionPhZY/upload/staff.jpg',
+        image: 'http://192.168.1.100:8080/PositionPhZY/upload/staff.jpg',
         width: 40,
         height: 40,
         scale: 1,
