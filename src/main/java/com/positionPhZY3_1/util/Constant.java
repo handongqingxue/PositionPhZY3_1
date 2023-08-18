@@ -110,11 +110,13 @@ public class Constant {
 	/**
 	 * 瑞海服务器ip
 	 */
-	public static final String SERVICE_IP_CYSRHSWKJYXGS="120.224.131.123";
+	public static final String SERVICE_IP_CYSRHSWKJYXGS="192.168.124.154";
+	//public static final String SERVICE_IP_CYSRHSWKJYXGS="120.224.131.123";
 	/**
 	 * 瑞海服务器端口
 	 */
-	public static final int SERVICE_PORT_CYSRHSWKJYXGS=81;
+	public static final int SERVICE_PORT_CYSRHSWKJYXGS=80;
+	//public static final int SERVICE_PORT_CYSRHSWKJYXGS=81;
 	/**
 	 * 瑞海项目名称
 	 */

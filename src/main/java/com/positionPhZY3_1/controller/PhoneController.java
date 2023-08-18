@@ -47,6 +47,7 @@ public class PhoneController {
 	@RequestMapping(value="/goPage")
 	public String goPage(HttpServletRequest request) {
 
+		//http://localhost:8080/PositionPhZY3_1/phone/goPage?page=login
 		//http://localhost:8080/PositionPhZY3_1/phone/goPage?page=testMap
 		//http://localhost:8080/PositionPhZY3_1/phone/goPage?page=index
 		String url = null;
@@ -54,10 +55,20 @@ public class PhoneController {
 		if("testMap".equals(page)){
 			url=MODULE_NAME+"/testMap";
 		}
+		else if("login".equals(page)){
+			setLoginInfoInRequest(request);
+			url=MODULE_NAME+"/login";
+		}
 		else {
 			url=MODULE_NAME+"/"+page;
 		}
 		return url;
+	}
+	
+	private void setLoginInfoInRequest(HttpServletRequest request) {
+		request.setAttribute("tenantId", Constant.TENANT_ID_CYSRHSWKJYXGS);
+		request.setAttribute("username", Constant.USER_ID_CYSRHSWKJYXGS);
+		request.setAttribute("password", Constant.PASSWORD_CYSRHSWKJYXGS);
 	}
 
 	@RequestMapping(value="/summaryOnlineData")
@@ -111,12 +122,26 @@ public class PhoneController {
 		   Constant.USER_ID_CYSRHSWKJYXGS.equals(username)&&
 		   Constant.PASSWORD_CYSRHSWKJYXGS.equals(password)) {
 			epFlag=Constant.CYSRHSWKJYXGS;
+			request.setAttribute("epFlag", epFlag);
+			oauthToken(request);
+			
+			resultMap.put("status", "ok");
 		}
-		request.setAttribute("epFlag", epFlag);
-		
-		oauthToken(request);
+		else {
+			resultMap.put("status", "no");
+			resultMap.put("message", "用户不存在");
+		}
 		
 		return resultMap;
+	}
+	
+	@RequestMapping(value="/exit")
+	public String exit(HttpServletRequest request) {
+		
+		//HttpSession session = request.getSession();
+		//session.removeAttribute("loginUser");
+		
+		return MODULE_NAME+"/login";
 	}
 	
 	/**

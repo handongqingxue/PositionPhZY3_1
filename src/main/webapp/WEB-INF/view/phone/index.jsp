@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%
-	String basePath=request.getScheme()+"://"+request.getServerName()+":"
-		+request.getServerPort()+request.getContextPath()+"/";
+	String serverName=request.getServerName();
+	int serverPort=request.getServerPort();
+	String basePath=request.getScheme()+"://"+serverName+":"
+		+serverPort+request.getContextPath()+"/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,6 +20,8 @@ https://cesium.com/downloads/
 <script src="<%=basePath %>resource/cesiumjs/releases/1.56.1/Build/Cesium/Cesium.js"></script>
 <link href="<%=basePath %>resource/cesiumjs/releases/1.56.1/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 <script type="text/javascript">
+var serverName='<%=serverName %>';
+var serverPort='<%=serverPort %>';
 var path='<%=basePath %>';
 var phonePath=path+"phone/";
 var selectedFloorValue="";
@@ -31,7 +35,29 @@ $(function(){
 	initViewer();
 	loadTileset();
 	getStaffPositionList();
+	setInterval(() => {
+		refreshEntities();
+	}, 500);
 });
+
+function exit(){
+	if(confirm("确实要退出吗？")){
+		runAndroidFunction("removeUserId");
+		location.href=phonePath+"exit";
+	}
+}
+
+function runAndroidFunction(flag){
+	if(flag=="getPageName"){
+		AndroidFunction.getPageName('${param.page}');
+	}
+	else if(flag=="showUserInfo"){
+		//手机桌面图标打壳处接收的是一整个字符串，这里不管多少个参数，都要用+拼接成一个整体的字符串
+		AndroidFunction.showUserInfo('rhsw'+","+'1');
+	}
+	else if(flag=="removeUserId")
+		AndroidFunction.removeUserId();
+}
 
 function showSSTJDiv(flag){
 	var xssstjButImg=$("#xssstj_but_img");
@@ -84,7 +110,7 @@ function initViewer(){
 
 function loadTileset(){
 	var tileset = new Cesium.Cesium3DTileset({
-	   url: "http://192.168.1.100:8080/PositionPhZY/upload/b3dm/tileset.json",
+	   url: "http://"+serverName+":"+serverPort+"/PositionPhZY/upload/b3dm/tileset.json",
 	   shadows:Cesium.ShadowMode.DISABLED,//去除阴影
 	});
 	//console.log(tileset)
@@ -107,7 +133,7 @@ function initStaffImg(longitude,latitude,staffId,staffName,floor){
       position: staffPosition,
       billboard: {
         //图标
-        image: 'http://192.168.1.100:8080/PositionPhZY/upload/staff.jpg',
+        image: "http://"+serverName+":"+serverPort+"/PositionPhZY/upload/staff.jpg",
         width: 40,
         height: 40,
         scale: 1,
@@ -223,10 +249,36 @@ function getStaffPositionList(){
 		}
 	,"json");
 }
+
+function refreshEntities(){
+	$.post(path+"phone/getStaffPositionList",
+		function(data){
+			if(data.status=="ok"){
+				var positionList=data.positionList;
+				for(var i=0;i<positionList.length;i++){
+					var position=positionList[i];
+					var staffEn=viewer.entities.getById("staff"+position.staffId);
+					var staffNameEn=viewer.entities.getById("staffName"+position.staffId);
+					//if(position.staffName=="高路路"){
+						//console.log("longitude===="+position.longitude+","+position.latitude+","+position.staffId+","+position.staffName+","+position.floor);
+						if(staffEn!=undefined)
+							staffEn.position=Cesium.Cartesian3.fromDegrees(position.longitude,position.latitude,position.z);
+						if(staffNameEn!=undefined)
+							staffNameEn.position=Cesium.Cartesian3.fromDegrees(position.longitude,position.latitude,position.z+40);
+						//milkTruckEnLong-=0.00001;
+					//}
+				}
+			}
+		}
+	,"json");
+}
 </script>
 <style type="text/css">
 body{
 	margin: 0;
+}
+.exit_but{
+	display: none;
 }
 .load_map_div{
 	width: 100%;
@@ -318,6 +370,7 @@ body{
 <title>辰麒人员定位安全管理平台</title>
 </head>
 <body>
+<input class="exit_but" id="exit_but" type="button" value="退出" onclick="exit();"/>
 <div class="load_map_div" id="load_map_div">
 	<div class="text_div">地图加载中</div>
 </div>
